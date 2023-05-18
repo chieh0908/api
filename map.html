@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google map資訊視窗</title>
+    
+    <style>
+        #map{
+            width: 800px;
+            height: 600px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy5_SjUbRXayyiYVb9QaQSlRUW6CSM5Io&callback=initMap"></script>
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+            const uluru = { lat: 25.005675331992553, lng: 121.56087015934982 };
+            // The map, centered at Uluru
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 14,
+                center: uluru,
+            });
+
+            const contentString =
+                '<div id="content">' +
+                '<div id="siteNotice">' +
+                "</div>" +
+                '<h1 id="firstHeading" class="firstHeading">??????</h1>' +
+                '<div id="bodyContent">' +
+                "<p><b>Goooooooogle</b>123</b>" +
+                "123123<br> " +
+                "222 " +
+                "333 " +
+                "444 " +
+                "555 <br>" +
+                "666 " +
+                "777 " +
+                "888 " +
+                "999.</p>" +
+                '<p>3345678, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
+                "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
+                "(last visited June 22, 2009).</p>" +
+                "</div>" +
+                "</div>";
+            // The marker, positioned at Uluru
+            //換google標記icon
+            const img = "img/placeholder.png";
+            const marker = new google.maps.Marker({
+                position: uluru,
+                map: map,
+                title:"台北市政府123",
+                icon:img //換google標記icon
+            });
+            const infowindow = new google.maps.InfoWindow({
+                content: contentString,
+                ariaLabel: "台北市政府",
+            });
+            
+            marker.addListener("click", () => {
+                infowindow.open({
+                anchor: marker,
+                map, 
+                });
+            });
+        }
+
+        window.initMap = initMap;
+    </script>
+</body>
+</html>

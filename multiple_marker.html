@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多點標記</title>
+    <style>
+        #map{
+            width: 800px;
+            height: 600px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy5_SjUbRXayyiYVb9QaQSlRUW6CSM5Io&callback=initMap"></script>
+    <script>
+        
+        function initMap() {
+            const taipei_city = { lat: 25.02179147603253, lng: 121.54118693780048 };
+            // The map, centered at Uluru
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: taipei_city,
+            });
+            const img = "img/placeholder.png";
+            for(let i = 0; i < locations.length; i++){
+                const marker = new google.maps.Marker({
+                    position: locations[i],
+                    map: map,
+                    // title:"地點"+(i+1),
+                    title: pos_name[i],
+                    icon:img //換google標記icon
+                });
+                const infowindow = new google.maps.InfoWindow({
+                    // content: "地點說明" +(i+1),
+                    // ariaLabel: "地點"+(i+1),
+                    content: pos_name[i],
+                    ariaLabel:pos_name[i],
+                });
+                
+                marker.addListener("click", () => {
+                    infowindow.open({
+                    anchor: marker,
+                    map, 
+                    });
+                });
+            }
+            
+            
+        }
+        //點擊地標會跑出對應的名稱
+        const pos_name = ["星巴克辛亥門市", "Open開房間桌遊餐酒館", "國立臺灣大學 計算機及資訊網路中心", "安好食 和平店", "蔬菓in", "壹之穴沾麵專門店"];
+        const locations = [
+            { lat: 25.02179147603253, lng: 121.54118693780048 },
+            { lat: 25.02172210787389, lng: 121.5399589025297 },
+            { lat: 25.02092437131188, lng: 121.53977071011407 },
+            { lat: 25.021739449917526, lng: 121.54213746898796 },
+            { lat: 25.021655630027094, lng: 121.54291256656418 },
+            { lat: 25.022236587411538, lng: 121.54313903541951 }
+
+        ];
+        // 載入地圖
+        window.initMap = initMap;
+    </script>
+
+</body>
+</html>
